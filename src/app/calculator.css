@@ -1,43 +1,285 @@
+/**
+ * Calculator Component Styles
+ * 
+ * Visual styling for the calculator UI including:
+ * - Container gradient and shadow
+ * - Display screen appearance
+ * - Button grid layout with uniform sizing
+ * - Button color schemes (operators, functions, equals)
+ * - Responsive design breakpoints for mobile, tablet, desktop
+ * 
+ * Layout uses CSS Grid for responsive button alignment across all devices.
+ */
+
+/* Main calculator container with gradient background */
 .calculator-container {
-  max-width: 400px;
-  margin: 50px auto;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
   padding: 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
+/**
+ * Display Screen
+ * Shows the current expression and result in monospace font
+ * - Large font size for readability
+ * - Right-aligned for numeric display convention
+ * - Dark background for contrast
+ */
 .display {
   background-color: #1e1e1e;
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-align: right;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  padding: 24px 18px;
+  border-radius: 12px;
+  margin-bottom: 22px;
   word-wrap: break-word;
   word-break: break-all;
-  min-height: 50px;
+  min-height: 90px;
   font-family: 'Courier New', monospace;
   font-weight: bold;
+  overflow: hidden;
 }
 
+/**
+ * Button Grid Container
+ * Uses CSS Grid for responsive, uniform button sizing
+ * - 4 columns for standard layout
+ * - Auto-sized rows for consistent button heights
+ * - Gap between buttons for visual separation
+ */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  /* Make rows uniform so every button is same height */
+  grid-auto-rows: 64px;
   gap: 10px;
 }
 
+/**
+ * Base Button Styling
+ * - Fills its grid cell (height: 100%)
+ * - Flexbox centering for icon/text
+ * - Smooth transitions for hover/active states
+ * - Touch-friendly sizing
+ */
 .button {
-  padding: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  /* Fill the grid cell so all buttons match size */
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   background-color: #404040;
   color: #fff;
-  transition: all 0.2s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* Hover effect: lift button and add shadow */
+.button:hover {
+  background-color: #505050;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Active/Press effect: button returns to normal position */
+.button:active {
+  transform: translateY(0);
+}
+
+/**
+ * Operator Buttons (+, -, *, /)
+ * Purple/blue color to distinguish from number buttons
+ */
+.button.operator {
+  background-color: #667eea;
+}
+
+.button.operator:hover {
+  background-color: #5568d3;
+}
+
+/**
+ * Function Buttons (AC - All Clear, DEL - Delete)
+ * Red color to indicate destructive/reset actions
+ */
+.button.function {
+  background-color: #ff6b6b;
+}
+
+.button.function:hover {
+  background-color: #ff5252;
+}
+
+/**
+ * Equals Button (=)
+ * Green color indicates calculation action
+ * Spans 2 columns to fill right side of last row
+ * Larger font for prominence
+ */
+.button.equals {
+  background-color: #51cf66;
+  grid-column: span 2;
+  font-size: 1.4rem;
+  font-weight: 800;
+  /* Make equals visually larger and fill its cell */
+  padding: 0 18px;
+}
+
+.button.equals:hover {
+  background-color: #40c057;
+}
+
+/**
+ * Zero Button (0)
+ * Spans 2 columns to match standard calculator layout
+ */
+.button.zero {
+  grid-column: span 2;
+}
+
+/* Ensure equal sizing for multi-span buttons */
+.button.equals,
+.button.zero {
+  height: 100%;
+}
+
+/**
+ * RESPONSIVE DESIGN: Tablet (≤768px)
+ * - Reduce padding and gaps slightly
+ * - Reduce button row heights
+ * - Scale down font sizes
+ */
+@media (max-width: 768px) {
+  .buttons {
+    grid-auto-rows: 60px;
+    gap: 8px;
+  }
+  .button { font-size: 1.15rem; }
+  .button.equals { font-size: 1.25rem; }
+}
+
+/**
+ * RESPONSIVE DESIGN: Mobile (≤480px)
+ * - Compact spacing for smaller screens
+ * - Smaller button sizes and fonts
+ * - Reduced shadow for performance
+ */
+@media (max-width: 480px) {
+  .buttons {
+    grid-auto-rows: 56px;
+    gap: 7px;
+  }
+  .button { font-size: 1.05rem; }
+  .button.equals { font-size: 1.15rem; }
+}
+
+/**
+ * RESPONSIVE DESIGN: Small Mobile (≤375px)
+ * - Ultra-compact sizing for phones < 375px width
+ * - Minimal padding to maximize usable area
+ */
+@media (max-width: 375px) {
+  .calculator-container {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .display {
+    font-size: 1.5rem;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .buttons {
+    gap: 6px;
+  }
+
+  .button {
+    padding: 12px 8px;
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+}
+
+/**
+ * RESPONSIVE DESIGN: Extra Small Mobile (≤320px)
+ * - Minimal spacing for oldest/smallest devices
+ */
+@media (max-width: 320px) {
+  .calculator-container {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .display {
+    font-size: 1.3rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-height: 40px;
+  }
+
+  .buttons {
+    gap: 5px;
+  }
+
+  .button {
+    padding: 10px 6px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
+}
+
+.display {
+  background-color: #1e1e1e;
+  color: #fff;
+  font-size: 3rem;
+  text-align: right;
+  padding: 24px 18px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  word-wrap: break-word;
+  word-break: break-all;
+  min-height: 90px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Make rows uniform so every button is same height */
+  grid-auto-rows: 64px;
+  gap: 10px;
+}
+
+.button {
+  /* Fill the grid cell so all buttons match size */
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #404040;
+  color: #fff;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .button:hover {
@@ -69,6 +311,10 @@
 .button.equals {
   background-color: #51cf66;
   grid-column: span 2;
+  font-size: 1.4rem;
+  font-weight: 800;
+  /* Make equals visually larger and fill its cell */
+  padding: 0 18px;
 }
 
 .button.equals:hover {
@@ -77,4 +323,152 @@
 
 .button.zero {
   grid-column: span 2;
+}
+
+/* Ensure equal sizing for multi-span buttons */
+.button.equals,
+.button.zero {
+  height: 100%;
+}
+
+/* Responsive adjustments: smaller row heights on smaller screens */
+@media (max-width: 768px) {
+  .buttons {
+    grid-auto-rows: 60px;
+    gap: 8px;
+  }
+  .button { font-size: 1.15rem; }
+  .button.equals { font-size: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    grid-auto-rows: 56px;
+    gap: 7px;
+  }
+  .button { font-size: 1.05rem; }
+  .button.equals { font-size: 1.15rem; }
+}
+
+@media (max-width: 375px) {
+  .buttons {
+    grid-auto-rows: 52px;
+    gap: 6px;
+  }
+  .button { font-size: 0.95rem; }
+  .button.equals { font-size: 1.05rem; }
+}
+
+/* ============================================ */
+/* TABLET STYLES (768px and up) */
+/* ============================================ */
+@media (max-width: 768px) {
+  .calculator-container {
+    max-width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .display {
+    font-size: 2rem;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+
+  .button {
+    padding: 18px;
+    font-size: 1.3rem;
+    border-radius: 8px;
+  }
+}
+
+/* ============================================ */
+/* MOBILE STYLES (480px and below) */
+/* ============================================ */
+@media (max-width: 480px) {
+  .calculator-container {
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .display {
+    font-size: 1.8rem;
+    padding: 15px;
+    margin-bottom: 15px;
+    min-height: 45px;
+    border-radius: 8px;
+  }
+
+  .buttons {
+    gap: 7px;
+  }
+
+  .button {
+    padding: 15px 10px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* ============================================ */
+/* SMALL MOBILE STYLES (375px and below) */
+/* ============================================ */
+@media (max-width: 375px) {
+  .calculator-container {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .display {
+    font-size: 1.5rem;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .buttons {
+    gap: 6px;
+  }
+
+  .button {
+    padding: 12px 8px;
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+}
+
+/* ============================================ */
+/* EXTRA SMALL MOBILE (320px and below) */
+/* ============================================ */
+@media (max-width: 320px) {
+  .calculator-container {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .display {
+    font-size: 1.3rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-height: 40px;
+  }
+
+  .buttons {
+    gap: 5px;
+  }
+
+  .button {
+    padding: 10px 6px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
 }

@@ -1,13 +1,46 @@
+<!--
+  Main HTML Document
+  
+  This is the entry point for the Angular application in the browser.
+  
+  Key Elements:
+  1. <!doctype html> - HTML5 document type declaration
+  2. <head> - Metadata and configuration
+     - charset: UTF-8 for international character support
+     - title: Page title shown in browser tab
+     - base href: Base URL for routing (/ means root)
+     - viewport: Mobile responsive settings
+     - favicon: Browser tab icon
+  3. <body> - Page content container
+     - <app-root></app-root> - Angular root component mounts here
+  
+  Process:
+  1. Browser loads this HTML
+  2. Angular main.ts bootstraps the App component
+  3. App component replaces <app-root> with rendered content
+  4. JavaScript bundles provide interactivity
+  
+  For SSR (Server-Side Rendering):
+  - Server pre-renders <app-root> content to HTML
+  - Client receives full HTML + JavaScript
+  - JavaScript hydrates the page for interactivity
+-->
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Character encoding for international text support -->
   <meta charset="utf-8">
+  <!-- Page title shown in browser tab -->
   <title>CalculatorApp</title>
+  <!-- Base URL for Angular routing -->
   <base href="/">
+  <!-- Mobile responsive viewport settings -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Browser tab icon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <!-- Root component mount point - Angular renders here -->
   <app-root></app-root>
 </body>
 </html>
