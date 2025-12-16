@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+/**
+ * Global Application Styles
+ * 
+ * This file contains styles that apply to the entire application:
+ * - Base HTML/body styling (height, margins, overflow)
+ * - Smooth scrolling behavior
+ * - Any global utility classes or reset styles
+ * 
+ * Component-specific styles are in their own .css files
+ */
+
+/* Prevent page-level scrollbars so app fits exactly in viewport */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+/* Allow internal scrolling inside the main app container if content overflows */
+app-root, :root {
+	height: 100%;
+}
+
+/* Make main container scrollable internally instead of the page */
+.main-container {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
